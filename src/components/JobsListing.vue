@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, defineProps } from "vue";
+import { ref } from "vue";
 import jobsData from "../jobs.json";
 import JobList from "./JobList.vue";
 

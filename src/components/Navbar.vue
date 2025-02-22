@@ -1,17 +1,8 @@
 <script setup lang="ts">
 const menuLinks = [
-  {
-    name: "Home",
-    route: "/",
-  },
-  {
-    name: "Jobs",
-    route: "/jobs",
-  },
-  {
-    name: "Add Jobs",
-    route: "/jobs/add",
-  },
+  { id: "home", name: "Home" },
+  { id: "jobs", name: "Jobs" },
+  { id: "jobs/add", name: "Add Job" },
 ];
 </script>
 
@@ -26,12 +17,13 @@ const menuLinks = [
       <nav class="ml-auto max-sm:hidden">
         <ul class="flex gap-10 font-sans font-semibold text-white">
           <li class="text-lg" v-for="links in menuLinks" :key="links.name">
-            <router-link
-              :to="links.route"
+            <routerLink
+              exact-active-class="bg-emerald-800"
+              :to="`/${links.id}`"
               class="rounded-2xl px-6 py-1.5 hover:bg-emerald-800 hover:transition-all hover:duration-200 hover:ease-in"
             >
               {{ links.name }}
-            </router-link>
+            </routerLink>
           </li>
         </ul>
       </nav>
