@@ -1,5 +1,18 @@
 <script setup lang="ts">
-const menuLinks = ["Home", "Jobs", "Add Jobs"];
+const menuLinks = [
+  {
+    name: "Home",
+    route: "/",
+  },
+  {
+    name: "Jobs",
+    route: "/jobs",
+  },
+  {
+    name: "Add Jobs",
+    route: "/jobs/add",
+  },
+];
 </script>
 
 <template>
@@ -12,12 +25,13 @@ const menuLinks = ["Home", "Jobs", "Add Jobs"];
       </h1>
       <nav class="ml-auto max-sm:hidden">
         <ul class="flex gap-10 font-sans font-semibold text-white">
-          <li
-            class="rounded-2xl px-6 py-1.5 text-lg hover:bg-emerald-800 hover:transition-all hover:duration-200 hover:ease-in"
-            v-for="links in menuLinks"
-            :key="links"
-          >
-            <a href="">{{ links }}</a>
+          <li class="text-lg" v-for="links in menuLinks" :key="links.name">
+            <router-link
+              :to="links.route"
+              class="rounded-2xl px-6 py-1.5 hover:bg-emerald-800 hover:transition-all hover:duration-200 hover:ease-in"
+            >
+              {{ links.name }}
+            </router-link>
           </li>
         </ul>
       </nav>

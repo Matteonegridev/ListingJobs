@@ -1,9 +1,13 @@
-import { createRouter, createMemoryHistory } from "vue-router";
+import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
+import JobsView from "../views/JobsView.vue";
 
-const routes = [{ path: "/", component: HomeView }];
+const routes = [
+  { path: "/", name: "home", component: HomeView },
+  { path: "/jobs", name: "jobs", component: JobsView },
+];
 
 export const router = createRouter({
-  history: createMemoryHistory(),
+  history: createWebHistory(),
   routes,
 });
