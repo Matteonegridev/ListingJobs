@@ -1,0 +1,21 @@
+@import "tailwindcss";
+
+/* implement dark as selector */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-primary: #ffe600;
+  --padding-top: 4.5rem;
+  --breakpoint-sm: 40rem;
+  --color-red-700: #b02121;
+}
+
+/* variant example */
+.my-element {
+  color: white;
+  @variant dark {
+    @variant hover {
+      color: black;
+    }
+  }
+}
