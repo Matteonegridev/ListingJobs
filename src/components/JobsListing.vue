@@ -29,7 +29,7 @@ const loadJobs = () => {
         v-for="job in jobs.slice(0, limit)"
         :key="job.id"
         :job="job"
-        class="flex flex-col rounded-lg bg-white px-2 py-6 shadow-md"
+        class="rounded-lg bg-white px-2 py-6 shadow-md"
       />
     </article>
     <div class="grid place-content-center py-6">
