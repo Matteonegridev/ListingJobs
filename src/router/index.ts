@@ -8,7 +8,7 @@ export const routes = [
   { path: "/", name: "Home", component: HomeView },
   { path: "/jobs", name: "Jobs", component: JobsView },
   { path: "/jobs/:view", name: "Jobs View", component: JobReadMore },
-  { path: "/jobs/:id", name: "Add Jobs", component: AddJobsView },
+  { path: "/jobs/add", name: "Add Jobs", component: AddJobsView },
 ];
 
 export const router = createRouter({

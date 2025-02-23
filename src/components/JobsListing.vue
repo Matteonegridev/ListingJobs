@@ -1,18 +1,33 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import jobsData from "../jobs.json";
+import { onMounted, ref } from "vue";
+// import jobsData from "../jobs.json";
 import JobList from "./JobList.vue";
+import axios from "axios";
 
-defineProps<{ limit: number }>();
+const jobs = ref<any[]>([]);
+const limit = ref(3);
 
-const jobs = ref(jobsData.jobs);
-const limit = ref(4);
+onMounted(async () => {
+  try {
+    const response = await axios.get("http://localhost:5000/jobs");
+    // Evaluates data only if is an array:
+    if (Array.isArray(response.data)) {
+      jobs.value = response.data;
+    } else {
+      throw new Error("Failed fetching Data");
+    }
+    console.log(response.data);
+  } catch (error) {
+    throw new Error("Error");
+  }
+});
 
+// function to load more components:
 const loadJobs = () => {
   if (limit.value >= jobs.value.length) {
     return;
   } else {
-    limit.value = limit.value + 4;
+    limit.value = limit.value + 3;
   }
 };
 </script>

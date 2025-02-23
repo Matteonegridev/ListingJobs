@@ -58,7 +58,7 @@ const truncateDescription = computed(() => {
     </div>
 
     <RouterLink
-      class="text-md mt-auto cursor-pointer rounded-md bg-emerald-500 px-6 py-2 font-bold text-white"
+      class="text-md mt-auto cursor-pointer rounded-md bg-emerald-500 px-6 py-2 text-center font-bold text-white"
       :to="`/jobs/${job?.id}`"
     >
       Read More
