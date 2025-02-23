@@ -1,8 +1,8 @@
 <script setup lang="ts">
 const menuLinks = [
-  { id: "home", name: "Home" },
-  { id: "jobs", name: "Jobs" },
-  { id: "jobs/add", name: "Add Job" },
+  { id: "/", name: "Home" },
+  { id: "/jobs", name: "Jobs" },
+  { id: "/jobs/add", name: "Add Job" },
 ];
 </script>
 
@@ -19,7 +19,7 @@ const menuLinks = [
           <li class="text-lg" v-for="links in menuLinks" :key="links.name">
             <routerLink
               exact-active-class="bg-emerald-800"
-              :to="`/${links.id}`"
+              :to="`${links.id}`"
               class="rounded-2xl px-6 py-1.5 hover:bg-emerald-800 hover:transition-all hover:duration-200 hover:ease-in"
             >
               {{ links.name }}
