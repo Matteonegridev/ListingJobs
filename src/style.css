@@ -19,3 +19,43 @@
     }
   }
 }
+
+.mobile-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr;
+}
+
+@media (width >= 768px) {
+  .desktop-grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: auto;
+    grid-template-areas:
+      "article article article side"
+      "article2 article2 article2 side"
+      ". . . display";
+  }
+  .item-a {
+    grid-area: article;
+    grid-column: 1 / 4;
+    grid-row: 0 / 1;
+  }
+  .item-b {
+    grid-area: article2;
+    grid-column: 1 / 4;
+    grid-row: 2 / 3;
+  }
+
+  .item-c {
+    grid-area: side;
+    grid-column: 4 / 5;
+    grid-row: 1 / 4;
+  }
+  .item-d {
+    grid-area: display;
+    grid-column: 4 / 5;
+    grid-row: 4 / 5;
+  }
+}
