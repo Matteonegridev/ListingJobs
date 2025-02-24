@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from "vue";
+import BackButton from "../components/BackButton.vue";
 
 import { useRoute } from "vue-router";
 import axios from "axios";
@@ -31,7 +32,8 @@ function getButtonClass(action: string) {
 }
 </script>
 <template>
-  <main class="mobile-grid desktop-grid px-2 py-26 md:px-14">
+  <div class="px-4 pt-22 pb-4 text-emerald-500 md:px-14"><BackButton /></div>
+  <main class="mobile-grid desktop-grid bg-blue-50 px-2 py-6 md:px-14">
     <article class="item-a rounded-lg bg-white px-4 py-8 shadow-md">
       <div class="flex flex-col gap-2">
         <small class="font-mono text-gray-500">{{ singleJob?.type }}</small>

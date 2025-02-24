@@ -3,5 +3,7 @@ import JobsListing from "../components/JobsListing.vue";
 </script>
 
 <template>
-  <JobsListing />
+  <div class="pt-10">
+    <JobsListing />
+  </div>
 </template>
