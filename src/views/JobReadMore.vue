@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from "vue";
 import BackButton from "../components/BackButton.vue";
+import { router } from "../router/index.ts";
 
 import { useRoute } from "vue-router";
 import axios from "axios";
 
-const router = useRoute();
+const route = useRoute();
 const jobs = ref<any[]>([]);
 const actions = ref<string[]>(["Edit", "Delete"]);
 
@@ -22,14 +23,34 @@ onMounted(async () => {
 
 //Find the id that matches with the route path to display the job card:
 const singleJob = computed(() => {
-  const pathRoute = router.params.view;
+  const pathRoute = route.params.view;
   return jobs.value.find((job) => job.id === pathRoute);
 });
 
 // Function to return class based on action name
-function getButtonClass(action: string) {
+const getButtonClass = (action: string) => {
   return action === "Delete" ? "bg-red-500" : "bg-emerald-500";
-}
+};
+
+// To remove the data we must call a promise that will actually delete the data from the backend. It's not only the matching id because we are not talking about an array or object we have stored into a variable.
+const removeJob = async () => {
+  if (!singleJob.value) return;
+
+  if (actions.value.includes("Delete")) {
+    {
+      try {
+        const deletion = await axios.delete(`/api/jobs/${singleJob.value.id}`);
+        jobs.value = jobs.value.filter(
+          (entry) => entry.id !== singleJob.value.id,
+        );
+        router.push("/jobs");
+        return deletion.data;
+      } catch (error) {
+        throw new Error("Error deleting job");
+      }
+    }
+  }
+};
 </script>
 <template>
   <div class="px-4 pt-22 pb-4 text-emerald-500 md:px-14"><BackButton /></div>
@@ -95,6 +116,7 @@ function getButtonClass(action: string) {
       <div class="flex flex-col gap-2 py-2">
         <h3 class="mb-4 text-xl font-bold">Manage Job</h3>
         <button
+          @click="removeJob"
           class="cursor-pointer rounded-3xl py-2 font-bold text-white"
           v-for="action in actions"
           :key="action"
