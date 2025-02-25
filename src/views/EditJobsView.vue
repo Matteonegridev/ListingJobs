@@ -1,8 +1,14 @@
 <script setup lang="ts">
 import axios from "axios";
-import { reactive } from "vue";
+import { reactive, onMounted } from "vue";
 import { router } from "../router/index.ts";
 import { useToast } from "vue-toastification";
+import { useRoute } from "vue-router";
+
+const toast = useToast();
+const route = useRoute();
+
+const routePath = route.params.view;
 
 const data = reactive({
   title: "",
@@ -18,7 +24,32 @@ const data = reactive({
   },
 });
 
-const toast = useToast();
+const state = reactive({
+  job: {} as typeof data,
+  isLoading: true,
+});
+
+// Let's create a call so the inputs will be populated by data. The data that will populate the page must be the one coming from the file we click "edit" from: that's why the call has the routePath: it will match the id with the path.
+onMounted(async () => {
+  try {
+    const response = await axios.get(`/api/jobs/${routePath}`);
+    state.job = response.data;
+    //populate the inputs with the call we just made:
+    data.title = state.job?.title;
+    data.type = state.job?.type;
+    data.location = state.job?.location;
+    data.description = state.job?.description;
+    data.salary = state.job?.salary;
+    data.company.name = state.job?.company.name;
+    data.company.description = state.job?.company.description;
+    data.company.contactEmail = state.job?.company.contactEmail;
+    data.company.contactPhone = state.job?.company.contactPhone;
+  } catch (error) {
+    throw new Error("Error");
+  } finally {
+    state.isLoading = false;
+  }
+});
 
 const submitData = async () => {
   const payload = {
@@ -40,12 +71,22 @@ const submitData = async () => {
     toast.error("Job Was Not Added");
   }
 };
+
+// const editJob = async () => {
+//   try {
+//     const response = await axios.put(`/api/jobs/${singleJob.value.id}`);
+//     const data = response.data;
+//     jobs.value = data.map((item: any) => {
+//       item.id === singleJob.value.id ? data : item;
+//     });
+//   } catch (error) {}
+// };
 </script>
 
 <template>
-  <h1 class="mt-33">hellooo</h1>
   <main>
     <form @submit.prevent="submitData">
+      <h1 class="mt-33">Edit Job</h1>
       <div>
         <select name="type" id="type" v-model="data.type" required>
           <option value="Full-Time" default>Full-Time</option>
@@ -139,7 +180,7 @@ const submitData = async () => {
           v-model="data.company.contactPhone"
         />
       </div>
-      <button type="submit">Post Job</button>
+      <button type="submit">Update Job</button>
     </form>
   </main>
 </template>
