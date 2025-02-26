@@ -59,3 +59,12 @@
     grid-row: 4 / 5;
   }
 }
+
+.v-enter-from,
+.v-leave-to {
+  transform: translateX(100%);
+}
+.v-enter-active,
+.v-leave-active {
+  transition: all 0.5s ease;
+}

@@ -1,5 +1,15 @@
 <script setup lang="ts">
+import { useRouter } from "vue-router";
 import Card from "./Card.vue";
+
+const router = useRouter();
+
+const toDev = () => {
+  router.push("/jobs");
+};
+const toEmployers = () => {
+  router.push("/jobs/add");
+};
 </script>
 
 <template>
@@ -9,6 +19,7 @@ import Card from "./Card.vue";
         <h1 class="text-3xl font-bold">For Developers</h1>
         <p>Browse our Vue jobs and start your career today</p>
         <button
+          @click="toDev"
           class="text-bold mt-4 cursor-pointer rounded-lg bg-black px-4 py-2 font-sans text-sm text-white"
         >
           Browse Jobs
@@ -19,6 +30,7 @@ import Card from "./Card.vue";
         <h1 class="text-3xl font-bold">For Employers</h1>
         <p>List your job to find the perfect developer for the role</p>
         <button
+          @click="toEmployers"
           class="text-bold mt-4 cursor-pointer rounded-lg bg-emerald-500 px-4 py-2 font-sans text-sm text-white"
         >
           Add Job
